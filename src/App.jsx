@@ -4,7 +4,8 @@ import {
   X, Star, Trash2, UserCircle, Plus, Minus, Edit3,
   CheckCircle, Loader2, Layers,
   FlaskConical, Bug, Truck, ShieldCheck, Store, Search,
-  Package, ListOrdered, TrendingUp, Settings, BarChart3, Palette, Save, Upload
+  Package, ListOrdered, TrendingUp, Settings, BarChart3, Palette, Save, Upload,
+  Camera, FileText, LogOut // <-- Добавлена иконка выхода
 } from 'lucide-react';
 
 // --- КОНСТАНТЫ И НАЧАЛЬНЫЕ ДАННЫЕ ---
@@ -23,51 +24,43 @@ const CATEGORIES = [
 ];
 
 const RAW_PRODUCTS = [
-  // Хвойные
-  { name: 'Туя западная Смарагд (80-100 см)', price: 1500, category: 'conifers', nurseryId: 'n1' },
-  { name: 'Можжевельник Минт Джулеп', price: 1850, category: 'conifers', nurseryId: 'n2' },
-  { name: 'Ель колючая Глаука', price: 2500, category: 'conifers', nurseryId: 'n1' },
-
-  // Цветы
-  { name: 'Роза Эбрахам Дерби', price: 1200, category: 'flowers', nurseryId: 'n1' },
-  { name: 'Пион Марьин корень', price: 950, category: 'flowers', nurseryId: 'n2' },
-  { name: 'Тюльпан Сара Бернар (5шт)', price: 450, category: 'flowers', nurseryId: 'n1' },
-
-  // Плодовые
-  { name: 'Яблоня Антоновка', price: 800, category: 'fruits', nurseryId: 'n1' },
-  { name: 'Груша Чижовская', price: 850, category: 'fruits', nurseryId: 'n2' },
-  { name: 'Вишня Владимирская', price: 750, category: 'fruits', nurseryId: 'n1' },
-
-  // Кустарники
-  { name: 'Гортензия Ванилла Фрейз', price: 1350, category: 'shrubs', nurseryId: 'n1' },
-  { name: 'Сирень Красавица Москвы', price: 1100, category: 'shrubs', nurseryId: 'n2' },
-  { name: 'Спирея японская Литтл Принцесс', price: 650, category: 'shrubs', nurseryId: 'n1' },
-
-  // Грунт
-  { name: 'Грунт универсальный 50л', price: 600, category: 'soil', nurseryId: 'n1' },
-  { name: 'Торф верховой кислый 50л', price: 550, category: 'soil', nurseryId: 'n2' },
-  { name: 'Мульча из коры сосны 60л', price: 450, category: 'soil', nurseryId: 'n1' },
-
-  // Химия
-  { name: 'Удобрение Bona Forte', price: 350, category: 'chemicals', nurseryId: 'n1' },
-  { name: 'Фитоспорин-М', price: 80, category: 'chemicals', nurseryId: 'n2' },
-  { name: 'Эпин-Экстра', price: 50, category: 'chemicals', nurseryId: 'n1' },
-
-  // Дизайнеры
-  { name: 'Студия Эко-Дизайн (Проект)', price: 45000, category: 'designers', nurseryId: 'n1' },
-  { name: 'Анна Смирнова (Экспресс-дизайн)', price: 15000, category: 'designers', nurseryId: 'n2' },
-  { name: 'Иван Петров (Проект водоема)', price: 25000, category: 'designers', nurseryId: 'n1' }
+  { name: 'Туя западная Смарагд (80-100 см)', price: 1500, category: 'conifers', nurseryId: 'n1', image: 'https://images.unsplash.com/photo-1598902108854-10e335adac99?auto=format&fit=crop&q=80&w=400' },
+  { name: 'Можжевельник Минт Джулеп', price: 1850, category: 'conifers', nurseryId: 'n2', image: 'https://images.unsplash.com/photo-1629739502758-7e3f71fbc030?auto=format&fit=crop&q=80&w=400' },
+  { name: 'Ель колючая Глаука', price: 2500, category: 'conifers', nurseryId: 'n1', image: 'https://images.unsplash.com/photo-1599385311025-01e40eb351e2?auto=format&fit=crop&q=80&w=400' },
+  { name: 'Роза Эбрахам Дерби', price: 1200, category: 'flowers', nurseryId: 'n1', image: 'https://images.unsplash.com/photo-1559564484-e48b3e040ff4?auto=format&fit=crop&q=80&w=400' },
+  { name: 'Пион Марьин корень', price: 950, category: 'flowers', nurseryId: 'n2', image: '' },
+  { name: 'Тюльпан Сара Бернар (5шт)', price: 450, category: 'flowers', nurseryId: 'n1', image: '' },
+  { name: 'Яблоня Антоновка', price: 800, category: 'fruits', nurseryId: 'n1', image: 'https://images.unsplash.com/photo-1590849673555-525b6a70e4bb?auto=format&fit=crop&q=80&w=400' },
+  { name: 'Груша Чижовская', price: 850, category: 'fruits', nurseryId: 'n2', image: '' },
+  { name: 'Вишня Владимирская', price: 750, category: 'fruits', nurseryId: 'n1', image: '' },
+  { name: 'Гортензия Ванилла Фрейз', price: 1350, category: 'shrubs', nurseryId: 'n1', image: 'https://images.unsplash.com/photo-1623594895066-5e0ce26d83a1?auto=format&fit=crop&q=80&w=400' },
+  { name: 'Сирень Красавица Москвы', price: 1100, category: 'shrubs', nurseryId: 'n2', image: '' },
+  { name: 'Спирея японская Литтл Принцесс', price: 650, category: 'shrubs', nurseryId: 'n1', image: '' },
+  { name: 'Грунт универсальный 50л', price: 600, category: 'soil', nurseryId: 'n1', image: 'https://images.unsplash.com/photo-1416879598555-220dbdf55d9d?auto=format&fit=crop&q=80&w=400' },
+  { name: 'Торф верховой кислый 50л', price: 550, category: 'soil', nurseryId: 'n2', image: '' },
+  { name: 'Мульча из коры сосны 60л', price: 450, category: 'soil', nurseryId: 'n1', image: '' },
+  { name: 'Удобрение Bona Forte', price: 350, category: 'chemicals', nurseryId: 'n1', image: '' },
+  { name: 'Фитоспорин-М', price: 80, category: 'chemicals', nurseryId: 'n2', image: '' },
+  { name: 'Эпин-Экстра', price: 50, category: 'chemicals', nurseryId: 'n1', image: '' },
+  { name: 'Студия Эко-Дизайн (Проект)', price: 45000, category: 'designers', nurseryId: 'n1', image: '' },
+  { name: 'Анна Смирнова (Экспресс-дизайн)', price: 15000, category: 'designers', nurseryId: 'n2', image: '' },
+  { name: 'Иван Петров (Проект водоема)', price: 25000, category: 'designers', nurseryId: 'n1', image: '' }
 ];
 
 const INITIAL_PRODUCTS = RAW_PRODUCTS.map((p, index) => ({
   id: index + 1,
-  ...p,
-  image: '' // Оставляем пустым, чтобы отображались красивые иконки категорий
+  image: '', 
+  ...p       
 }));
 
 const NURSERIES = [
   { id: 'n1', name: 'Зелёный Сад', location: 'Московская область', rating: 4.8, type: 'Крупный питомник' },
   { id: 'n2', name: 'Хвойный Рай', location: 'Ленинградская область', rating: 4.9, type: 'Специализированный' },
+];
+
+// Предустановленный демо-пользователь для тестов
+const INITIAL_USERS = [
+  { id: 'n1', email: 'demo@mail.ru', password: '123', nurseryName: 'Зелёный Сад', inn: '7700000001', address: 'Московская область' }
 ];
 
 // --- ВСПОМОГАТЕЛЬНЫЕ КОМПОНЕНТЫ ---
@@ -76,7 +69,6 @@ const ProductImage = ({ src, alt, category }) => {
   const [hasError, setHasError] = useState(false);
   const Icon = CATEGORIES.find(c => c.id === category)?.icon || Leaf;
 
-  // Если ссылки нет или картинка не загрузилась — показываем серую заглушку с иконкой
   if (!src || hasError) {
     return (
       <div className="w-full h-full bg-gray-100 flex flex-col items-center justify-center p-4 text-center">
@@ -96,9 +88,21 @@ const ProductImage = ({ src, alt, category }) => {
 };
 
 export default function App() {
-  // Меняем ключ localStorage на v3, чтобы сбросить старые 70 товаров и загрузить 21
+  // База пользователей
+  const [registeredUsers, setRegisteredUsers] = useState(() => {
+    const saved = localStorage.getItem('agromarket_users_v1');
+    return saved ? JSON.parse(saved) : INITIAL_USERS;
+  });
+
+  // Текущий авторизованный питомник
+  const [currentUser, setCurrentUser] = useState(() => {
+    const saved = localStorage.getItem('agromarket_current_user_v1');
+    return saved ? JSON.parse(saved) : null;
+  });
+
+  // База товаров
   const [products, setProducts] = useState(() => {
-    const saved = localStorage.getItem('agromarket_items_v3');
+    const saved = localStorage.getItem('agromarket_items_v5');
     return saved ? JSON.parse(saved) : INITIAL_PRODUCTS;
   });
 
@@ -107,13 +111,18 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState('');
   const [cart, setCart] = useState([]);
   
+  // Состояния авторизации
+  const [authMode, setAuthMode] = useState('login'); // 'login' | 'register'
+  const [authForm, setAuthForm] = useState({ email: '', password: '', nurseryName: '', inn: '', address: '' });
+  const [authError, setAuthError] = useState('');
+
   // Состояния для Личного Кабинета
   const [currentSellerTab, setCurrentSellerTab] = useState('overview');
   const [editingProduct, setEditingProduct] = useState(null);
   
   // Состояния оформления заказа
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
-  const [checkoutStep, setCheckoutStep] = useState('details');
+  const [checkoutStep, setCheckoutStep] = useState('details'); 
   const [isProcessing, setIsProcessing] = useState(false);
   const [monopolyFormStatus, setMonopolyFormStatus] = useState('idle');
   const [monopolyPestTypes, setMonopolyPestTypes] = useState({ ticks: false, mosquitoes: false, pests: false, diseases: false });
@@ -129,18 +138,67 @@ export default function App() {
   const [deliveryDistance, setDeliveryDistance] = useState(null);
   const [isCalculatingDelivery, setIsCalculatingDelivery] = useState(false);
 
-  // Данные клиента
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerAddress, setCustomerAddress] = useState('');
   const [deliveryDate, setDeliveryDate] = useState('');
+  
+  const [requirePhoto, setRequirePhoto] = useState(false);
+  const [photoMessenger, setPhotoMessenger] = useState('whatsapp');
+  const [agreedToOffer, setAgreedToOffer] = useState(false);
+  const [agreedToData, setAgreedToData] = useState(false);
 
   // Сохранение в LocalStorage
   useEffect(() => {
-    localStorage.setItem('agromarket_items_v3', JSON.stringify(products));
-  }, [products]);
+    localStorage.setItem('agromarket_items_v5', JSON.stringify(products));
+    localStorage.setItem('agromarket_users_v1', JSON.stringify(registeredUsers));
+    if (currentUser) {
+      localStorage.setItem('agromarket_current_user_v1', JSON.stringify(currentUser));
+    } else {
+      localStorage.removeItem('agromarket_current_user_v1');
+    }
+  }, [products, registeredUsers, currentUser]);
 
-  // Фильтрация каталога
+  // --- ЛОГИКА АВТОРИЗАЦИИ ---
+  const handleAuthSubmit = (e) => {
+    e.preventDefault();
+    setAuthError('');
+    
+    if (authMode === 'register') {
+      if (registeredUsers.find(u => u.email === authForm.email)) {
+        setAuthError('Питомник с таким email уже зарегистрирован.');
+        return;
+      }
+      const newUser = { 
+        id: 'n_' + Date.now(), 
+        email: authForm.email, 
+        password: authForm.password, 
+        nurseryName: authForm.nurseryName, 
+        inn: authForm.inn, 
+        address: authForm.address 
+      };
+      setRegisteredUsers([...registeredUsers, newUser]);
+      setCurrentUser(newUser);
+      setAuthForm({ email: '', password: '', nurseryName: '', inn: '', address: '' });
+      setCurrentSellerTab('overview');
+    } else {
+      const user = registeredUsers.find(u => u.email === authForm.email && u.password === authForm.password);
+      if (user) {
+        setCurrentUser(user);
+        setAuthForm({ email: '', password: '', nurseryName: '', inn: '', address: '' });
+        setCurrentSellerTab('overview');
+      } else {
+        setAuthError('Неверный email или пароль.');
+      }
+    }
+  };
+
+  const handleLogout = () => {
+    setCurrentUser(null);
+    setAuthMode('login');
+  };
+
+  // --- ЛОГИКА КАТАЛОГА И КОРЗИНЫ ---
   const filteredProducts = useMemo(() => {
     return products.filter(p => 
       (selectedCategory === 'all' || p.category === selectedCategory) &&
@@ -148,9 +206,9 @@ export default function App() {
     );
   }, [products, selectedCategory, searchQuery]);
 
-  const myProducts = products.filter(p => p.nurseryId === 'n1');
+  // Товары текущего авторизованного продавца
+  const myProducts = currentUser ? products.filter(p => p.nurseryId === currentUser.id) : [];
 
-  // Расчеты
   const cartCount = cart.reduce((sum, item) => sum + item.q, 0);
   const onlinePaymentTotal = cart.reduce((sum, item) => sum + (item.price * item.q), 0);
   const deliveryCost = calculatedDeliveryCost || 0;
@@ -172,7 +230,6 @@ export default function App() {
   const onSitePaymentTotal = (includeDelivery ? deliveryCost : 0) + (includePlanting ? plantingCost : 0) + pestControlCost;
   const grandTotal = onlinePaymentTotal + onSitePaymentTotal;
 
-  // Работа с корзиной
   const addToCart = (p) => {
     setCart(prev => {
       const ex = prev.find(i => i.id === p.id);
@@ -187,7 +244,7 @@ export default function App() {
 
   const removeFromCart = (id) => setCart(prev => prev.filter(i => i.id !== id));
 
-  // Работа с товарами (Панель продавца)
+  // --- ЛОГИКА ТОВАРОВ ПРОДАВЦА ---
   const handleSaveProduct = (e) => {
     e.preventDefault();
     setProducts(prev => {
@@ -216,7 +273,6 @@ export default function App() {
     }
   };
 
-  // Логика оформления заказа
   const calculateDelivery = () => {
     if (!customerAddress || cart.length === 0) return;
     setIsCalculatingDelivery(true);
@@ -235,10 +291,6 @@ export default function App() {
 
   const handleProceedToPayment = (e) => {
     e.preventDefault();
-    if (includeDelivery && calculatedDeliveryCost === null) {
-      calculateDelivery(); 
-      return;
-    }
     setCheckoutStep('payment');
   };
 
@@ -259,6 +311,10 @@ export default function App() {
       setPestControlArea('');
       setCalculatedDeliveryCost(null);
       setDeliveryDistance(null);
+      setRequirePhoto(false);
+      setPhotoMessenger('whatsapp');
+      setAgreedToOffer(false);
+      setAgreedToData(false);
     }, 2000);
   };
 
@@ -380,7 +436,7 @@ export default function App() {
             <button onClick={() => setActiveTab('seller')} className={`flex items-center gap-1.5 transition-colors ${activeTab === 'seller' ? 'text-green-600' : 'hover:text-gray-900'}`}><UserCircle className="w-4 h-4"/> Мой магазин</button>
           </nav>
 
-          <button onClick={() => setIsCheckoutOpen(true)} className="relative p-2.5 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all active:scale-95 flex-shrink-0">
+          <button onClick={() => { setIsCheckoutOpen(true); setCheckoutStep('details'); }} className="relative p-2.5 bg-gray-100 rounded-xl hover:bg-gray-200 transition-all active:scale-95 flex-shrink-0">
             <ShoppingCart className="w-6 h-6 text-gray-700"/>
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-[10px] font-black px-1.5 py-0.5 rounded-full border-2 border-white shadow-sm">
@@ -473,154 +529,254 @@ export default function App() {
           </div>
         )}
 
+        {/* ВКЛАДКА "МОЙ МАГАЗИН" -> АВТОРИЗАЦИЯ ИЛИ ПАНЕЛЬ ПРОДАВЦА */}
         {activeTab === 'seller' && (
-          <div className="flex flex-col lg:flex-row gap-6 w-full">
-            <div className="w-full lg:w-72 bg-white p-4 rounded-3xl border border-gray-100 shadow-sm h-fit shrink-0">
-              <div className="flex items-center gap-4 mb-6 p-2">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-black text-xl shrink-0">ЗС</div>
-                <div>
-                  <h3 className="font-bold text-gray-900 leading-tight">Зелёный Сад</h3>
-                  <p className="text-xs text-gray-500 mt-0.5">Московская область</p>
-                </div>
+          !currentUser ? (
+            // --- ЭКРАН ВХОДА И РЕГИСТРАЦИИ ---
+            <div className="max-w-md mx-auto mt-10 bg-white p-8 md:p-10 rounded-[2.5rem] shadow-xl border border-gray-100 w-full animate-in fade-in zoom-in-95 duration-300">
+              <div className="text-center mb-8">
+                <div className="w-16 h-16 bg-green-100 text-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 rotate-3"><Store className="w-8 h-8"/></div>
+                <h2 className="text-2xl font-black text-gray-900 tracking-tight">
+                  {authMode === 'login' ? 'Вход для питомников' : 'Регистрация питомника'}
+                </h2>
+                <p className="text-gray-500 mt-2 text-sm">Управляйте товарами и заказами онлайн</p>
               </div>
-              <nav className="space-y-1.5">
-                <button onClick={() => setCurrentSellerTab('overview')} className={`w-full flex items-center gap-3 p-3.5 rounded-2xl transition-all ${currentSellerTab === 'overview' ? 'bg-green-50 text-green-700 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium'}`}>
-                  <BarChart3 className="w-5 h-5"/> Сводка
-                </button>
-                <button onClick={() => setCurrentSellerTab('products')} className={`w-full flex items-center gap-3 p-3.5 rounded-2xl transition-all ${currentSellerTab === 'products' ? 'bg-green-50 text-green-700 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium'}`}>
-                  <Package className="w-5 h-5"/> Мои товары
-                </button>
-                <button onClick={() => setCurrentSellerTab('orders')} className={`w-full flex items-center gap-3 p-3.5 rounded-2xl transition-all ${currentSellerTab === 'orders' ? 'bg-green-50 text-green-700 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium'}`}>
-                  <ListOrdered className="w-5 h-5"/> Заказы
-                  <span className="ml-auto bg-red-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full">1</span>
-                </button>
-                <div className="pt-4 mt-4 border-t border-gray-100">
-                  <button className="w-full flex items-center gap-3 p-3.5 rounded-2xl text-gray-500 hover:bg-gray-50 transition-all font-medium">
-                    <Settings className="w-5 h-5"/> Настройки магазина
-                  </button>
-                </div>
-              </nav>
-            </div>
-            
-            <div className="flex-1 bg-white p-6 md:p-10 rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
-              {currentSellerTab === 'overview' && (
-                <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                  <h2 className="text-2xl font-black text-gray-900 mb-6">Сводка за месяц</h2>
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-                    <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-md transition-shadow">
-                      <div className="text-gray-500 text-sm mb-3 flex items-center gap-2 font-medium"><TrendingUp className="w-4 h-4 text-green-500"/> Выручка</div>
-                      <div className="text-3xl font-black text-gray-900">128 400 ₽</div>
-                    </div>
-                    <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-md transition-shadow">
-                      <div className="text-gray-500 text-sm mb-3 flex items-center gap-2 font-medium"><ListOrdered className="w-4 h-4 text-blue-500"/> Заказы</div>
-                      <div className="text-3xl font-black text-gray-900">14 <span className="text-sm font-medium text-gray-400 ml-1">шт.</span></div>
-                    </div>
-                    <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-md transition-shadow">
-                      <div className="text-gray-500 text-sm mb-3 flex items-center gap-2 font-medium"><Package className="w-4 h-4 text-orange-500"/> Товары</div>
-                      <div className="text-3xl font-black text-gray-900">{myProducts.length} <span className="text-sm font-medium text-gray-400 ml-1">активных</span></div>
-                    </div>
-                  </div>
 
-                  <h3 className="font-bold text-gray-900 mb-4 text-lg">Последние действия</h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-2xl bg-white hover:bg-gray-50 transition-colors cursor-pointer">
-                      <div className="w-2.5 h-2.5 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.6)]"></div>
-                      <div className="flex-1"><span className="font-bold text-gray-900">Новый заказ ORD-841</span> на сумму 3 200 ₽</div>
-                      <div className="text-sm font-medium text-gray-400">2 часа назад</div>
-                    </div>
-                    <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-2xl bg-white hover:bg-gray-50 transition-colors cursor-pointer">
-                      <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      <div className="flex-1 text-gray-600">Заказ ORD-839 переведен в статус <span className="font-bold text-gray-900">«В доставке»</span></div>
-                      <div className="text-sm font-medium text-gray-400">Вчера</div>
-                    </div>
+              <form onSubmit={handleAuthSubmit} className="space-y-4">
+                {authError && (
+                  <div className="p-4 bg-red-50 text-red-600 text-sm rounded-xl font-bold border border-red-100">
+                    {authError}
                   </div>
+                )}
+
+                {authMode === 'register' && (
+                  <>
+                    <input 
+                      required 
+                      placeholder="Название (ООО, ИП или Бренд)" 
+                      value={authForm.nurseryName} 
+                      onChange={e => setAuthForm({...authForm, nurseryName: e.target.value})} 
+                      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:bg-white focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all text-sm" 
+                    />
+                    <div className="flex gap-4">
+                      <input 
+                        required 
+                        placeholder="ИНН" 
+                        value={authForm.inn} 
+                        onChange={e => setAuthForm({...authForm, inn: e.target.value})} 
+                        className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:bg-white focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all text-sm" 
+                      />
+                    </div>
+                    <input 
+                      required 
+                      placeholder="Регион и фактический адрес" 
+                      value={authForm.address} 
+                      onChange={e => setAuthForm({...authForm, address: e.target.value})} 
+                      className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:bg-white focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all text-sm" 
+                    />
+                  </>
+                )}
+                
+                <input 
+                  required 
+                  type="email" 
+                  placeholder="Email" 
+                  value={authForm.email} 
+                  onChange={e => setAuthForm({...authForm, email: e.target.value})} 
+                  className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:bg-white focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all text-sm" 
+                />
+                <input 
+                  required 
+                  type="password" 
+                  placeholder="Пароль" 
+                  value={authForm.password} 
+                  onChange={e => setAuthForm({...authForm, password: e.target.value})} 
+                  className="w-full p-4 bg-gray-50 border border-gray-200 rounded-2xl outline-none focus:bg-white focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all text-sm" 
+                />
+
+                <button type="submit" className="w-full py-4 mt-2 bg-green-600 text-white rounded-2xl font-black shadow-xl shadow-green-100 hover:bg-green-700 active:scale-95 transition-all">
+                  {authMode === 'login' ? 'Войти в кабинет' : 'Создать магазин'}
+                </button>
+              </form>
+
+              <div className="mt-8 text-center text-sm text-gray-500">
+                {authMode === 'login' ? 'Хотите продавать свои растения?' : 'Уже сотрудничаете с нами?'}
+                <button 
+                  onClick={() => { setAuthMode(authMode === 'login' ? 'register' : 'login'); setAuthError(''); }} 
+                  className="ml-2 font-bold text-green-600 hover:text-green-700"
+                >
+                  {authMode === 'login' ? 'Зарегистрироваться' : 'Войти'}
+                </button>
+              </div>
+
+              {authMode === 'login' && (
+                <div className="mt-8 pt-6 border-t border-gray-100 text-xs text-gray-400 text-center">
+                  Для теста (существующий питомник):<br/> Email: <b>demo@mail.ru</b> | Пароль: <b>123</b>
                 </div>
               )}
-
-              {currentSellerTab === 'products' && (
-                <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                  <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
-                    <h2 className="text-2xl font-black text-gray-900">Мои товары</h2>
-                    <button 
-                      onClick={() => setEditingProduct({ id: Date.now(), name: '', price: 0, category: 'conifers', nurseryId: 'n1', image: '' })}
-                      className="px-5 py-2.5 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700 transition-all flex items-center gap-2 shadow-lg shadow-green-100 active:scale-95"
-                    >
-                      <Plus className="w-4 h-4" /> Добавить товар
+            </div>
+          ) : (
+            // --- ПАНЕЛЬ ПРОДАВЦА (Если авторизован) ---
+            <div className="flex flex-col lg:flex-row gap-6 w-full animate-in fade-in duration-500">
+              <div className="w-full lg:w-72 bg-white p-4 rounded-3xl border border-gray-100 shadow-sm h-fit shrink-0 flex flex-col">
+                <div className="flex items-center gap-4 mb-6 p-2">
+                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-black text-xl shrink-0 uppercase">
+                    {currentUser.nurseryName.substring(0, 2)}
+                  </div>
+                  <div className="overflow-hidden">
+                    <h3 className="font-bold text-gray-900 leading-tight truncate">{currentUser.nurseryName}</h3>
+                    <p className="text-xs text-gray-500 mt-0.5 truncate">{currentUser.address}</p>
+                  </div>
+                </div>
+                <nav className="space-y-1.5 flex-1">
+                  <button onClick={() => setCurrentSellerTab('overview')} className={`w-full flex items-center gap-3 p-3.5 rounded-2xl transition-all ${currentSellerTab === 'overview' ? 'bg-green-50 text-green-700 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium'}`}>
+                    <BarChart3 className="w-5 h-5"/> Сводка
+                  </button>
+                  <button onClick={() => setCurrentSellerTab('products')} className={`w-full flex items-center gap-3 p-3.5 rounded-2xl transition-all ${currentSellerTab === 'products' ? 'bg-green-50 text-green-700 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium'}`}>
+                    <Package className="w-5 h-5"/> Мои товары
+                  </button>
+                  <button onClick={() => setCurrentSellerTab('orders')} className={`w-full flex items-center gap-3 p-3.5 rounded-2xl transition-all ${currentSellerTab === 'orders' ? 'bg-green-50 text-green-700 font-bold' : 'text-gray-600 hover:bg-gray-50 font-medium'}`}>
+                    <ListOrdered className="w-5 h-5"/> Заказы
+                    <span className="ml-auto bg-red-500 text-white text-[10px] font-black px-2 py-0.5 rounded-full">1</span>
+                  </button>
+                  <div className="pt-4 mt-4 border-t border-gray-100">
+                    <button className="w-full flex items-center gap-3 p-3.5 rounded-2xl text-gray-500 hover:bg-gray-50 transition-all font-medium">
+                      <Settings className="w-5 h-5"/> Настройки
+                    </button>
+                    <button onClick={handleLogout} className="w-full flex items-center gap-3 p-3.5 rounded-2xl text-red-500 hover:bg-red-50 transition-all font-bold mt-1">
+                      <LogOut className="w-5 h-5"/> Выйти
                     </button>
                   </div>
-                  
-                  <div className="overflow-x-auto max-h-[600px]">
-                    <table className="w-full text-left border-collapse">
-                      <thead className="sticky top-0 bg-white">
-                        <tr className="border-b border-gray-100 text-gray-400 text-sm">
-                          <th className="pb-4 font-medium">Товар</th>
-                          <th className="pb-4 font-medium">Категория</th>
-                          <th className="pb-4 font-medium">Цена</th>
-                          <th className="pb-4 font-medium text-right">Действия</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-gray-50">
-                        {myProducts.map(p => (
-                          <tr key={p.id} className="hover:bg-gray-50/50 transition-colors group">
-                            <td className="py-4 flex items-center gap-3">
-                              <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 shrink-0">
-                                <ProductImage src={p.image} alt={p.name} category={p.category} />
-                              </div>
-                              <span className="font-bold text-gray-900 line-clamp-2 max-w-[250px]">{p.name}</span>
-                            </td>
-                            <td className="py-4 text-gray-500 text-sm">
-                              {CATEGORIES.find(c => c.id === p.category)?.name}
-                            </td>
-                            <td className="py-4 font-black text-gray-900 whitespace-nowrap">{p.price.toLocaleString()} ₽</td>
-                            <td className="py-4 text-right">
-                              <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                                <button onClick={() => setEditingProduct({...p})} className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Edit3 className="w-4 h-4" /></button>
-                                <button onClick={() => handleDeleteProduct(p.id)} className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4" /></button>
-                              </div>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              )}
+                </nav>
+              </div>
+              
+              <div className="flex-1 bg-white p-6 md:p-10 rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+                {currentSellerTab === 'overview' && (
+                  <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <h2 className="text-2xl font-black text-gray-900 mb-6">Сводка за месяц</h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
+                      <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-md transition-shadow">
+                        <div className="text-gray-500 text-sm mb-3 flex items-center gap-2 font-medium"><TrendingUp className="w-4 h-4 text-green-500"/> Выручка</div>
+                        <div className="text-3xl font-black text-gray-900">128 400 ₽</div>
+                      </div>
+                      <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-md transition-shadow">
+                        <div className="text-gray-500 text-sm mb-3 flex items-center gap-2 font-medium"><ListOrdered className="w-4 h-4 text-blue-500"/> Заказы</div>
+                        <div className="text-3xl font-black text-gray-900">14 <span className="text-sm font-medium text-gray-400 ml-1">шт.</span></div>
+                      </div>
+                      <div className="p-6 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-md transition-shadow">
+                        <div className="text-gray-500 text-sm mb-3 flex items-center gap-2 font-medium"><Package className="w-4 h-4 text-orange-500"/> Товары</div>
+                        <div className="text-3xl font-black text-gray-900">{myProducts.length} <span className="text-sm font-medium text-gray-400 ml-1">активных</span></div>
+                      </div>
+                    </div>
 
-              {currentSellerTab === 'orders' && (
-                <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-                  <h2 className="text-2xl font-black text-gray-900 mb-8">Заказы клиентов</h2>
-                  <div className="overflow-x-auto">
-                    <table className="w-full text-left border-collapse">
-                      <thead>
-                        <tr className="border-b border-gray-100 text-gray-400 text-sm">
-                          <th className="pb-4 font-medium">Номер</th>
-                          <th className="pb-4 font-medium">Дата</th>
-                          <th className="pb-4 font-medium">Клиент</th>
-                          <th className="pb-4 font-medium">Сумма</th>
-                          <th className="pb-4 font-medium">Статус</th>
-                        </tr>
-                      </thead>
-                      <tbody className="divide-y divide-gray-50">
-                        {mockOrders.map(order => (
-                          <tr key={order.id} className="hover:bg-gray-50/50 transition-colors cursor-pointer">
-                            <td className="py-4 font-bold text-gray-900">{order.id}</td>
-                            <td className="py-4 text-gray-500 text-sm">{order.date}</td>
-                            <td className="py-4 text-gray-900 font-medium">{order.client}</td>
-                            <td className="py-4 font-black text-gray-900 whitespace-nowrap">{order.amount.toLocaleString()} ₽</td>
-                            <td className="py-4">
-                              <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold ${getStatusColor(order.status)}`}>
-                                {order.status}
-                              </span>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
+                    <h3 className="font-bold text-gray-900 mb-4 text-lg">Последние действия</h3>
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-2xl bg-white hover:bg-gray-50 transition-colors cursor-pointer">
+                        <div className="w-2.5 h-2.5 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.6)]"></div>
+                        <div className="flex-1"><span className="font-bold text-gray-900">Новый заказ ORD-841</span> на сумму 3 200 ₽</div>
+                        <div className="text-sm font-medium text-gray-400">2 часа назад</div>
+                      </div>
+                      <div className="flex items-center gap-4 p-4 border border-gray-100 rounded-2xl bg-white hover:bg-gray-50 transition-colors cursor-pointer">
+                        <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                        <div className="flex-1 text-gray-600">Заказ ORD-839 переведен в статус <span className="font-bold text-gray-900">«В доставке»</span></div>
+                        <div className="text-sm font-medium text-gray-400">Вчера</div>
+                      </div>
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+
+                {currentSellerTab === 'products' && (
+                  <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
+                      <h2 className="text-2xl font-black text-gray-900">Мои товары</h2>
+                      <button 
+                        onClick={() => setEditingProduct({ id: Date.now(), name: '', price: 0, category: 'conifers', nurseryId: currentUser.id, image: '' })}
+                        className="px-5 py-2.5 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700 transition-all flex items-center gap-2 shadow-lg shadow-green-100 active:scale-95"
+                      >
+                        <Plus className="w-4 h-4" /> Добавить товар
+                      </button>
+                    </div>
+                    
+                    <div className="overflow-x-auto max-h-[600px]">
+                      {myProducts.length === 0 ? (
+                        <div className="text-center py-16 bg-gray-50 rounded-2xl border border-dashed border-gray-200">
+                          <Package className="w-12 h-12 text-gray-300 mx-auto mb-3" />
+                          <p className="text-gray-500 font-medium">У вас пока нет добавленных товаров</p>
+                        </div>
+                      ) : (
+                        <table className="w-full text-left border-collapse">
+                          <thead className="sticky top-0 bg-white">
+                            <tr className="border-b border-gray-100 text-gray-400 text-sm">
+                              <th className="pb-4 font-medium">Товар</th>
+                              <th className="pb-4 font-medium">Категория</th>
+                              <th className="pb-4 font-medium">Цена</th>
+                              <th className="pb-4 font-medium text-right">Действия</th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-50">
+                            {myProducts.map(p => (
+                              <tr key={p.id} className="hover:bg-gray-50/50 transition-colors group">
+                                <td className="py-4 flex items-center gap-3">
+                                  <div className="w-12 h-12 rounded-lg overflow-hidden bg-gray-100 shrink-0">
+                                    <ProductImage src={p.image} alt={p.name} category={p.category} />
+                                  </div>
+                                  <span className="font-bold text-gray-900 line-clamp-2 max-w-[250px]">{p.name}</span>
+                                </td>
+                                <td className="py-4 text-gray-500 text-sm">
+                                  {CATEGORIES.find(c => c.id === p.category)?.name}
+                                </td>
+                                <td className="py-4 font-black text-gray-900 whitespace-nowrap">{p.price.toLocaleString()} ₽</td>
+                                <td className="py-4 text-right">
+                                  <div className="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                                    <button onClick={() => setEditingProduct({...p})} className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"><Edit3 className="w-4 h-4" /></button>
+                                    <button onClick={() => handleDeleteProduct(p.id)} className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"><Trash2 className="w-4 h-4" /></button>
+                                  </div>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {currentSellerTab === 'orders' && (
+                  <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+                    <h2 className="text-2xl font-black text-gray-900 mb-8">Заказы клиентов</h2>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-left border-collapse">
+                        <thead>
+                          <tr className="border-b border-gray-100 text-gray-400 text-sm">
+                            <th className="pb-4 font-medium">Номер</th>
+                            <th className="pb-4 font-medium">Дата</th>
+                            <th className="pb-4 font-medium">Клиент</th>
+                            <th className="pb-4 font-medium">Сумма</th>
+                            <th className="pb-4 font-medium">Статус</th>
+                          </tr>
+                        </thead>
+                        <tbody className="divide-y divide-gray-50">
+                          {mockOrders.map(order => (
+                            <tr key={order.id} className="hover:bg-gray-50/50 transition-colors cursor-pointer">
+                              <td className="py-4 font-bold text-gray-900">{order.id}</td>
+                              <td className="py-4 text-gray-500 text-sm">{order.date}</td>
+                              <td className="py-4 text-gray-900 font-medium">{order.client}</td>
+                              <td className="py-4 font-black text-gray-900 whitespace-nowrap">{order.amount.toLocaleString()} ₽</td>
+                              <td className="py-4">
+                                <span className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-bold ${getStatusColor(order.status)}`}>
+                                  {order.status}
+                                </span>
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
+          )
         )}
       </main>
 
@@ -712,11 +868,12 @@ export default function App() {
         <div className="fixed inset-0 bg-black/40 z-[100] flex items-center justify-center p-4 backdrop-blur-sm">
           <div className="bg-white rounded-3xl max-w-lg w-full p-8 shadow-2xl relative max-h-[90vh] overflow-y-auto text-sm">
             {checkoutStep !== 'success' && (
-              <button onClick={() => setIsCheckoutOpen(false)} className="absolute right-6 top-6 text-gray-400 hover:text-gray-600 p-2"><X className="w-6 h-6" /></button>
+              <button onClick={() => { setIsCheckoutOpen(false); setCheckoutStep('details'); }} className="absolute right-6 top-6 text-gray-400 hover:text-gray-600 p-2"><X className="w-6 h-6" /></button>
             )}
             
+            {/* ШАГ 1: ТОВАРЫ + УСЛУГИ + ДАННЫЕ КЛИЕНТА */}
             {checkoutStep === 'details' && (
-              <form onSubmit={handleProceedToPayment}>
+              <div>
                 <h3 className="text-2xl font-black mb-6 tracking-tight">Ваш заказ</h3>
                 
                 <div className="space-y-4 mb-8">
@@ -843,7 +1000,7 @@ export default function App() {
                     </div>
 
                     <h4 className="font-bold text-gray-900 mb-3">Данные получателя:</h4>
-                    <div className="space-y-3 mb-8">
+                    <form onSubmit={(e) => { e.preventDefault(); setCheckoutStep('agreements'); }} className="space-y-4">
                       <input 
                         required 
                         value={customerName} 
@@ -859,10 +1016,11 @@ export default function App() {
                         placeholder="Номер телефона" 
                         className="w-full p-3.5 bg-gray-50 border border-gray-200 rounded-xl outline-none focus:bg-white focus:border-green-500 focus:ring-2 focus:ring-green-100 transition-all" 
                       />
+
                       {(includeDelivery || includePlanting || includePestControl) && (
                         <div className="flex flex-col sm:flex-row gap-2">
                           <input 
-                            required 
+                            required={includeDelivery}
                             value={customerAddress} 
                             onChange={e => {
                               setCustomerAddress(e.target.value);
@@ -894,42 +1052,112 @@ export default function App() {
                           />
                         </div>
                       )}
-                    </div>
 
-                    <div className="pt-6 border-t border-gray-100 mb-6 space-y-3">
-                      <div className="flex justify-between items-center text-lg">
-                        <span className="text-gray-600">Товары (оплата онлайн сейчас):</span>
-                        <span className="font-bold text-gray-900">{onlinePaymentTotal.toLocaleString()} ₽</span>
-                      </div>
-                      
-                      {(includeDelivery || includePlanting || includePestControl) && (
-                        <div className="flex justify-between items-center text-lg">
-                          <span className="text-gray-600">Услуги (оплата на месте специалисту):</span>
-                          <span className="font-bold text-orange-600">{onSitePaymentTotal.toLocaleString()} ₽</span>
-                        </div>
-                      )}
-                      
-                      <div className="flex justify-between items-center text-2xl font-black pt-4 border-t border-gray-50 mt-2">
-                        <span>Общая сумма заказа:</span>
-                        <span className="text-green-700">{grandTotal.toLocaleString()} ₽</span>
-                      </div>
-                    </div>
-                    
-                    <button 
-                      type="submit" 
-                      disabled={includeDelivery && calculatedDeliveryCost === null}
-                      className="w-full py-4 bg-green-600 text-white rounded-2xl font-black shadow-xl shadow-green-100 hover:bg-green-700 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                    >
-                      {includeDelivery && calculatedDeliveryCost === null ? 'Сначала рассчитайте доставку' : 'Перейти к оплате товаров'}
-                    </button>
+                      <button 
+                        type="submit" 
+                        disabled={(includeDelivery && calculatedDeliveryCost === null)}
+                        className="w-full mt-6 py-4 bg-gray-900 text-white rounded-2xl font-black shadow-xl shadow-gray-200 hover:bg-gray-800 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                      >
+                        {includeDelivery && calculatedDeliveryCost === null ? 'Сначала рассчитайте доставку' : 'Далее: Подтверждение'}
+                      </button>
+                    </form>
                   </>
                 )}
+              </div>
+            )}
+
+            {/* ШАГ 2: АКЦЕНТ НА ФОТО И СОГЛАШЕНИЯ (ОФЕРТА) */}
+            {checkoutStep === 'agreements' && (
+              <form onSubmit={handleProceedToPayment}>
+                <button type="button" onClick={() => setCheckoutStep('details')} className="absolute left-6 top-6 text-sm font-bold text-gray-400 hover:text-gray-600">Назад</button>
+                <h3 className="text-2xl font-black mb-6 mt-8 tracking-tight">Подтверждение заказа</h3>
+
+                {/* БЛОК 1: ФОТООТЧЕТ (ВЫДЕЛЕН) */}
+                <div className="bg-blue-50 border-2 border-blue-100 p-5 rounded-2xl mb-6">
+                  <h4 className="font-black text-blue-900 mb-2 flex items-center gap-2">
+                    <Camera className="w-5 h-5 text-blue-600" /> Фотоотчет перед отгрузкой
+                  </h4>
+                  <p className="text-xs text-blue-800 mb-4 leading-relaxed">
+                    Хотите убедиться в качестве ваших растений? Мы можем прислать вам живые фотографии саженцев прямо из питомника перед их упаковкой и отправкой.
+                  </p>
+                  
+                  <label className="flex items-start cursor-pointer bg-white p-3 rounded-xl border border-blue-100 hover:border-blue-300 transition-colors">
+                    <input type="checkbox" checked={requirePhoto} onChange={e => setRequirePhoto(e.target.checked)} className="w-4 h-4 mt-0.5 accent-blue-600" />
+                    <span className="ml-3 font-bold text-blue-900 text-sm">Да, прислать фото саженцев</span>
+                  </label>
+                  
+                  {requirePhoto && (
+                    <div className="mt-4 flex gap-6 bg-white p-3 rounded-xl border border-blue-100">
+                      <label className="flex items-center cursor-pointer text-sm font-bold text-gray-700">
+                        <input type="radio" name="messenger" value="whatsapp" checked={photoMessenger === 'whatsapp'} onChange={e => setPhotoMessenger(e.target.value)} className="mr-2 accent-blue-600" />
+                        WhatsApp
+                      </label>
+                      <label className="flex items-center cursor-pointer text-sm font-bold text-gray-700">
+                        <input type="radio" name="messenger" value="max" checked={photoMessenger === 'max'} onChange={e => setPhotoMessenger(e.target.value)} className="mr-2 accent-blue-600" />
+                        MAX
+                      </label>
+                    </div>
+                  )}
+                </div>
+
+                {/* БЛОК 2: СОГЛАШЕНИЯ (ОФЕРТА) */}
+                <div className="bg-orange-50 border-2 border-orange-100 p-5 rounded-2xl mb-8">
+                  <h4 className="font-black text-orange-900 mb-4 flex items-center gap-2">
+                    <FileText className="w-5 h-5 text-orange-600" /> Оферта и условия
+                  </h4>
+                  
+                  <div className="space-y-4">
+                    <label className="flex items-start cursor-pointer group bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-300 transition-colors">
+                      <input type="checkbox" required checked={agreedToOffer} onChange={e => setAgreedToOffer(e.target.checked)} className="w-4 h-4 mt-0.5 accent-orange-600 shrink-0 cursor-pointer" />
+                      <span className="ml-3 font-medium text-orange-900 text-xs leading-relaxed">
+                        Я согласен с условиями оферты. <br/><br/>
+                        <span className="text-orange-700 font-bold">Важно:</span> В случае отказа от товара надлежащего качества после его доставки, транспортные расходы удерживаются с клиента.
+                      </span>
+                    </label>
+                    
+                    <label className="flex items-start cursor-pointer group bg-white p-3 rounded-xl border border-orange-100 hover:border-orange-300 transition-colors">
+                      <input type="checkbox" required checked={agreedToData} onChange={e => setAgreedToData(e.target.checked)} className="w-4 h-4 mt-0.5 accent-orange-600 shrink-0 cursor-pointer" />
+                      <span className="ml-3 font-medium text-orange-900 text-xs leading-relaxed">
+                        Я даю согласие на обработку и передачу моих персональных данных.
+                      </span>
+                    </label>
+                  </div>
+                </div>
+
+                {/* ИТОГОВЫЕ СУММЫ */}
+                <div className="pt-4 border-t border-gray-100 mb-6 space-y-3">
+                  <div className="flex justify-between items-center text-lg">
+                    <span className="text-gray-600">Товары (оплата онлайн сейчас):</span>
+                    <span className="font-bold text-gray-900">{onlinePaymentTotal.toLocaleString()} ₽</span>
+                  </div>
+                  
+                  {(includeDelivery || includePlanting || includePestControl) && (
+                    <div className="flex justify-between items-center text-lg">
+                      <span className="text-gray-600">Услуги (оплата на месте специалисту):</span>
+                      <span className="font-bold text-orange-600">{onSitePaymentTotal.toLocaleString()} ₽</span>
+                    </div>
+                  )}
+                  
+                  <div className="flex justify-between items-center text-2xl font-black pt-4 border-t border-gray-50 mt-2">
+                    <span>Общая сумма заказа:</span>
+                    <span className="text-green-700">{grandTotal.toLocaleString()} ₽</span>
+                  </div>
+                </div>
+                
+                <button 
+                  type="submit" 
+                  disabled={!agreedToOffer || !agreedToData}
+                  className="w-full py-4 bg-green-600 text-white rounded-2xl font-black shadow-xl shadow-green-100 hover:bg-green-700 active:scale-95 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  Перейти к оплате
+                </button>
               </form>
             )}
 
+            {/* ШАГ 3: ОПЛАТА */}
             {checkoutStep === 'payment' && (
               <div className="text-center py-4">
-                <button onClick={() => setCheckoutStep('details')} className="absolute left-6 top-6 text-sm font-bold text-gray-400 hover:text-gray-600">Назад</button>
+                <button onClick={() => setCheckoutStep('agreements')} className="absolute left-6 top-6 text-sm font-bold text-gray-400 hover:text-gray-600">Назад</button>
                 <h3 className="text-2xl font-black mb-6">Оплата картой</h3>
                 <div className="w-full aspect-[1.6/1] bg-gradient-to-tr from-gray-900 to-gray-800 rounded-2xl mb-8 flex flex-col justify-end p-6 text-white text-left shadow-xl">
                   <div className="font-mono text-xl tracking-widest opacity-50 mb-2">•••• •••• •••• ••••</div>
@@ -951,6 +1179,7 @@ export default function App() {
               </div>
             )}
 
+            {/* ШАГ 4: УСПЕШНО */}
             {checkoutStep === 'success' && (
               <div className="text-center py-10">
                 <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -967,6 +1196,11 @@ export default function App() {
                       : <>Мы свяжемся с вами по номеру <span className="font-medium text-gray-900">{customerPhone}</span> для уточнения времени прибытия машины и бригады специалистов.</>
                     }
                   </p>
+                  {requirePhoto && (
+                    <p className="text-gray-600 border-t border-gray-200 pt-3 mt-3">
+                      📸 Перед отгрузкой мы пришлем вам фотографии ваших растений в <b>{photoMessenger === 'whatsapp' ? 'WhatsApp' : 'MAX'}</b>.
+                    </p>
+                  )}
                 </div>
 
                 <button onClick={() => {setIsCheckoutOpen(false); setCheckoutStep('details');}} className="w-full py-4 bg-gray-100 text-gray-900 font-black rounded-2xl hover:bg-gray-200 transition-all">
